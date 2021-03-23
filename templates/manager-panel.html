@@ -1,0 +1,259 @@
+{% extends 'base_section.html'%}
+{% load static %}
+{% block head%}
+<title>Register Page</title>
+<link rel="stylesheet" href="{% static 'css/style.css'%}">
+{% endblock %}
+{% block content %}
+<!-- MAIN CSS -->
+
+
+<br>
+<br>
+<br>
+<section class="contact mb-5 pb-5">
+
+  <div class="container">
+    {% csrf_token %}
+    <div class="row justify-content-center border">
+      <h1 class="text-center w-100 mt-3">Ro'yxatdan o'tkazish</h1>
+
+      <div class="col-lg-6 col-md-7 col-12 d-flex" data-aos="fade-up">
+
+        <h1 class="m-auto d-block">{{st.user.username}}</h1>
+
+      </div>
+
+
+      <div class="col-lg-8 mx-auto mt-5 col-md-10 col-12">
+
+
+        <form action="#" method="post" class="contact-form" id="list-students-info1" data-aos="fade-up"
+          data-aos-delay="300" role="form">
+          <div class="row">
+            <form action="" method="POST">
+              {% csrf_token %}
+              <div class="col-lg-6 col-12">
+                <label for="">Ism</label>
+                <input type="text" class="form-control text-capitalize" name="fname" placeholder="Ism" required>
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <label for="">Familiya</label>
+                <input type="text" class="form-control text-capitalize" name="lname" placeholder="Familiya" required>
+              </div>
+              <div class="col-lg-6 col-12">
+                <label for="">Sharif</label>
+                <input type="text" class="form-control text-capitalize" name="sname" placeholder="Sharif" required>
+              </div>
+              <div class="col-lg-6 col-12">
+                <label for="">Passport Seriya</label>
+                <p class="bg-white text-danger p-1 rounded" id="result"
+                  style="">Bu foydalanuvchi avval ro'yxatdan
+                  o'tgan</p>
+                <input type="tel" class="form-control text-uppercase" name="passport" placeholder="AA1234567"
+                  pattern="[A-Z]{2}[0-9]{7}" maxlength="9" id="username" onkeyup="checkuser()">
+              </div>
+              <div class="col-lg-6 col-12">
+                <label for="">Telefon raqami</label>
+                <input type="tel" class="form-control" name="phone" placeholder="+998" pattern="[0-9]{9}" maxlength="9">
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <label for="">Tug'ulgan sana</label>
+                <input type="date" class="form-control" name="bdate" placeholder="" required>
+              </div>
+
+              <div class="col-lg-6 col-12 form-check">
+
+                <div class="form-check-label">
+                  <label class="w-100" for="">Jinsi</label>
+                  <div class="form-control bg-white">
+                    <input type="radio" class="" name="gender" id="erkak"  value="erkak" required>
+                  <label for="erkak">Erkak</label>
+                  <input type="radio" class="ml-5" name="gender" id="ayol" value="ayol" required>
+                  <label for="ayol">ayol</label>
+                  </div>
+                </div>
+
+              
+              </div>
+              
+              <div class="col-lg-6 col-12">
+                <label for=""> Tuman </label>
+                <select class="form-control" name="branch"  required>
+                  {% for i in data %}
+                  <option value="{{i.branch.id}}">{{i.branch.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <label for=""> MFY </label>
+                <select class="form-control" name="mfy"  required>
+                  {% for i in mfy%}
+                  <option value="{{i.id}}">{{i.name}}</option>
+                  {%endfor%}
+                </select>
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <label for="">Kurs nomi:</label>
+                <select class="form-control" name="course" id="course" required onchange="selevtOption()">
+                  <option value="">Kurslar</option>
+                  {% for i in course %}
+                  <option value="{{i.id}}">{{i.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <label for="">O'qituvchi</label>
+                <select class="form-control" name="teacher" id="teacher"  required>
+                      {% for item in teacher %}
+                        <option id="teacher-option" value="{{item.fullname}}">{{item.fullname}}</option>
+                      {% endfor %}  
+                </select>
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <label for="">gurux</label>
+                <input class="form-control" type="text" name="group" required>
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <label for="">Boshlangan sana</label>
+                <input class="form-control" type="date" name="sdate" required>
+              </div>
+              <div class="col-lg-6 col-12">
+                <label for="">Tugatish Sanasi</label>
+                <input class="form-control" type="date" name="enddate" required>
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <label class="w-100" for="">To'lov turi</label>
+               <div class="form-control bg-white">
+                <input class="" type="radio" name="tolov" id="pullik" value="pullik" required>
+                <label for="pullik">pullik</label>
+                <input class="ml-5" type="radio" name="tolov" id="bepul" value="bepul" required>
+                <label for="bepul">bepul</label>
+               </div>
+              </div>
+
+              <div class="col-lg-6 col-12">
+                <label for="">Ijtimoiy holati</label>
+                <select class="form-control" name="social_statement"  required>
+                  <option value="ishchi-oila">Ishchi oila</option>
+                  <option value="ziyoli-oila">Ziyoli oila</option>
+                  <option value="Yaxshi">Yaxshi</option>
+                  <option value="temir-daftar">Temir daftar</option>
+                  <option value="ayollar-daftar">Ayollar daftari</option>
+                  <option value="yoshlar-daftar">Yoshlar daftari</option>
+                  <option value="chin-yetim">Chin yetim</option>
+                  <option value="chala-yetim">Chala yetim</option>
+                </select>
+
+              </div>
+              <div class="col-lg-12 col-12">
+                <label for="">Ishlash / O'qish joyi</label>
+                <input class="form-control" type="text" name="subject">
+              </div>
+
+
+              <div class="col-lg-12 col-7 my-4">
+                <button type="submit" class="rounded-pill btn btn-dark mx-auto d-block px-5" id="submit-button"
+                  name="submit">Saqlash</button>
+              </div>
+            </form>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+
+
+</section>
+<script>
+  function checkuser() {
+    let un = document.getElementById('username').value;
+    $.ajax({
+      url: "{% url 'check_user' %}",
+      type: 'get',
+      data: { usern: un },
+      success: function (data) {
+
+        if (data == 'Exists') {
+          document.getElementById('result').style.opacity = 1;
+          $('#username').addClass('alert alert-danger');
+          $('#submit-button').attr('disabled', 'disabled');
+        } else {
+          document.getElementById('result').style.opacity = 0;
+          $('#username').removeClass('alert alert-danger')
+          $('#submit-button').removeAttr('disabled')
+        }
+
+      }
+    })
+  }
+</script>
+
+<script>
+  function selevtOption() {
+    let kurs = document.getElementById('course');
+    let course = kurs.options[kurs.selectedIndex].value;
+    var token = $("input[name='csrfmiddlewaretoken']");
+    var csrftoken = token.val();
+
+    $.ajax({
+      url: "{% url 'getteacher' %}",
+      method: 'post',
+      headers: {'X-CSRFToken': csrftoken},
+      data: { coursera: course },
+      success: function (data) {
+        
+        console.log(data);
+        if (data) {
+          var teacherElem = $("#teacher");
+          teacherElem.html("");
+
+          $.each(data.skills, function(index, val) {
+            var optionElem = $("<option value="+val.id+">"+val.name+"</option>");
+            teacherElem.append(optionElem);
+          });
+          
+          skills.map(item => {
+            console.log(item);
+          })
+        } else {
+          console.log('error');
+          
+        }
+
+      }
+    })
+  }
+</script>
+
+
+
+<script>
+  var course = document.querySelector('#course');
+  var student = document.querySelector('#student');
+
+  function showme(id) {
+    document.getElementById(id).hidden = false;
+  }
+</script>
+{% if status %}
+<script>
+    alert('{{status}}');
+    window.location = '/manager-panel'
+</script>
+{% endif %}
+{% endblock %}
